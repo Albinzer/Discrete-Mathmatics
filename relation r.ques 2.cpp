@@ -1,4 +1,4 @@
-// two set making relation r and matrices 
+// two set making relation r and matrices .Finding the relation between two set (A&B) containing (a,b) such that aEA,  bEB and a>b.
 
 #include <iostream>
 #include <set>
