@@ -1,4 +1,8 @@
 // find the ordered pairs 
+// Let A be the set A={1,2,3,4}. Write a program to find the ordered pairs are in the relation .
+// (i).{ (a,b) |a divides b| }
+// (ii). { (a,b) |a<=b| }
+
 
 #include <iostream>
 #include <set>
