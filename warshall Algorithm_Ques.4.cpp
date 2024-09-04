@@ -1,4 +1,4 @@
-/? warshall algorithm
+ // Write a program to find the shortest path by warshall algorithm .
 
 #include <iostream>
 #include <vector>
