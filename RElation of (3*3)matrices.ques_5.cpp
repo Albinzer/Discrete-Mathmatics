@@ -1,3 +1,6 @@
+//  suppose that the relation R1 and R2 on set A are represented by the matrix MR1 and Mr2.Write a program to find the MR1 u MR2 and MR1 intersection MR2.
+
+
 #include <iostream>
 using namespace std;
 int main() {
