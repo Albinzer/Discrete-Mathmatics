@@ -23,27 +23,34 @@ int main() {
         A.insert(ele);
     }
 
-    // Function to print ordered pairs
-    auto printPairs = [](const set<int>& A, const string& relation) {
-        cout << "Ordered pairs in " << relation << ":" << endl;
+    // Function to print ordered pairs based on the given relation
+    auto printPairs = [](const set<int>& A, const string& relation, bool (*condition)(int, int)) {
+        cout << "Ordered pairs in " << relation << ": ";
         for (int a : A) {
             for (int b : A) {
-                cout << "(" << a << "," << b << "), ";
+                if (condition(a, b)) {
+                    cout << "(" << a << "," << b << ") ";
+                }
             }
         }
         cout << endl;
     };
 
-    // Print Cartesian Product A x A
-    printPairs(A, "A x A");
+    // Condition function for relation R1: a divides b
+    auto dividesCondition = [](int a, int b) -> bool {
+        return (b % a == 0);
+    };
+
+    // Condition function for relation R2: a <= b
+    auto lessEqualCondition = [](int a, int b) -> bool {
+        return (a <= b);
+    };
 
     // Print relation R1 {(a,b) | a divides b}
-    cout << "Enter R1: {(a,b) | a divides b}" << endl;
-    printPairs(A, "R1");
+    printPairs(A, "R1 {(a,b) | a divides b}", dividesCondition);
 
     // Print relation R2 {(a,b) | a <= b}
-    cout << "Enter R2: {(a,b) | a <= b}" << endl;
-    printPairs(A, "R2");
+    printPairs(A, "R2 {(a,b) | a <= b}", lessEqualCondition);
 
     return 0;
 }
