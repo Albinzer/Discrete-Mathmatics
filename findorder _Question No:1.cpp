@@ -5,52 +5,53 @@
 
 
 #include <iostream>
-#include <set>
-
 using namespace std;
 
 int main() {
-    // Input set A
     int n;
-    cout << "Enter the number of elements in set A: ";
+
+    cout << "Enter the value of n: ";
     cin >> n;
 
-    set<int> A;
-    cout << "Enter the elements of set A: " << endl;
+    int A[n];
+    cout << "Enter the elements: ";
     for (int i = 0; i < n; i++) {
-        int ele;
-        cin >> ele;
-        A.insert(ele);
+        cin >> A[i];
     }
 
-    // Function to print ordered pairs based on the given relation
-    auto printPairs = [](const set<int>& A, const string& relation, bool (*condition)(int, int)) {
-        cout << "Ordered pairs in " << relation << ": ";
-        for (int a : A) {
-            for (int b : A) {
-                if (condition(a, b)) {
-                    cout << "(" << a << "," << b << ") ";
+    // Relation R1
+    cout << "R1 = {";
+    bool firstPair = true; // For formatting purposes
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            if (A[j] % A[i] == 0) { // Corrected condition
+                if (!firstPair) {
+                    cout << ", ";
                 }
+                cout << "(" << A[i] << ", " << A[j] << ")";
+                firstPair = false;
             }
         }
-        cout << endl;
-    };
+    }
+    cout << "}" << endl;
 
-    // Condition function for relation R1: a divides b
-    auto dividesCondition = [](int a, int b) -> bool {
-        return (b % a == 0);
-    };
+    // Relation R2
+    cout << "R2 = {";
+    firstPair = true; // Reset for the second relation
 
-    // Condition function for relation R2: a <= b
-    auto lessEqualCondition = [](int a, int b) -> bool {
-        return (a <= b);
-    };
-
-    // Print relation R1 {(a,b) | a divides b}
-    printPairs(A, "R1 {(a,b) | a divides b}", dividesCondition);
-
-    // Print relation R2 {(a,b) | a <= b}
-    printPairs(A, "R2 {(a,b) | a <= b}", lessEqualCondition);
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            if (A[j] <= A[i]) { // Corrected condition
+                if (!firstPair) {
+                    cout << ", ";
+                }
+                cout << "(" << A[i] << ", " << A[j] << ")";
+                firstPair = false;
+            }
+        }
+    }
+    cout << "}" << endl;
 
     return 0;
 }
