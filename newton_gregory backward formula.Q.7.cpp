@@ -2,49 +2,47 @@
 
 #include <iostream>
 #include <cmath>
-
 using namespace std;
 
-double newton_gregory_backward_interpolation(double x[], double y[], int n, double x_interp) {
-    double h = x[1] - x[0];
-    double u = (x_interp - x[n - 1]) / h;
-
-    double y_interp = y[n - 1];
+double n_g(double x[], double y[], int n, double xip) {
+    double h = x[1] - x[0];  // Correct calculation of step size
+    double u = (xip - x[n-1]) / h;  // Correct calculation for u for backward interpolation
+    double yip = y[n-1];  // Start from the last term in backward interpolation
 
     for (int i = 1; i < n; i++) {
-        double product = 1;
+        double pro = 1;  // Reinitialize pro for each term
         for (int j = 0; j < i; j++) {
-            product *= (u + j);
+            pro *= (u + j);  // Compute the product term
         }
-        y_interp += (product / std::tgamma(i + 1)) * (y[n - i] - y[n - i - 1]);
+        yip += (pro / std::tgamma(i + 1)) * (y[n-1] - y[n-1-i]);  // Apply the backward difference formula
     }
-
-    return y_interp;
+    
+    return yip;  // Return the interpolated value
 }
 
 int main() {
     int n;
-    cout << "Enter the number of data points: ";
+    
+    cout << "Enter the value of n: ";
     cin >> n;
 
-    double x[n], y[n];
-
-    cout << "Enter the x values:\n";
+    double x[n], y[n];  // Initialize arrays after n is defined
+    cout << "Enter the values of x: ";
     for (int i = 0; i < n; i++) {
         cin >> x[i];
     }
 
-    cout << "Enter the y values:\n";
+    cout << "Enter the values of y: ";
     for (int i = 0; i < n; i++) {
         cin >> y[i];
     }
 
-    double x_interp;
-    cout << "Enter the value for interpolation: ";
-    cin >> x_interp;
+    double xip;
+    cout << "Enter the value of ip: ";
+    cin >> xip;
 
-    double f_7_5 = newton_gregory_backward_interpolation(x, y, n, x_interp);
-    cout << "f(7.5) = " << f_7_5 << endl;
+    double evf = n_g(x, y, n, xip);
+    cout << "Estimated value at " << xip << " is: " << evf << endl;
 
     return 0;
 }
